@@ -82,7 +82,7 @@
                                 <rect key="frame" x="0.0" y="300" width="375" height="367"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="weatherCell" rowHeight="80" id="het-Zc-krC">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="weatherCell" rowHeight="80" id="het-Zc-krC" customClass="WeatherCell" customModule="CurrentWeather" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="het-Zc-krC" id="kpd-pt-Qpf">
@@ -148,6 +148,13 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <outlet property="tempMaxLbl" destination="aiA-Ne-62x" id="46r-VN-lBR"/>
+                                            <outlet property="tempMinLbl" destination="xfI-tO-mDQ" id="OaN-U2-gi2"/>
+                                            <outlet property="weatherForcastDayLbl" destination="Wfj-QN-HpL" id="0kH-xC-QcJ"/>
+                                            <outlet property="weatherTypeImg" destination="YrE-0g-xhs" id="mcf-1H-sOG"/>
+                                            <outlet property="weatherTypeLbl" destination="q6c-6r-ZtN" id="3QR-b9-rRD"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

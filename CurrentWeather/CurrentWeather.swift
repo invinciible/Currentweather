@@ -4,7 +4,7 @@
 //
 //  Created by Tushar Katyal on 03/08/17.
 //  Copyright © 2017 Tushar Katyal. All rights reserved.
-//
+//  Class to download current weather information using Alamofire
 
 import UIKit
 import Alamofire
@@ -50,10 +50,9 @@ class CurrentWeather {
         return _weatherType
     }
    
-    /* function to download the data from API in
-    JSON Format and assigning it to variabls */
-    func downloadWeatherDetails(completed : DownloadComplete )
-    {
+    /* Closure to download the data from API in
+    JSON Format and assigning it to variables */
+    func downloadWeatherDetails(completed : @escaping DownloadComplete ) {
         //Alamofire Download JSON
         let currentWeatherUrl = URL(string: current_weather_url)!
         Alamofire.request(currentWeatherUrl).responseJSON { response in
@@ -63,27 +62,26 @@ class CurrentWeather {
             
                 if let name = dict["name"] as? String {
                     self._cityName = name.capitalized
-                    //
+                    
                 }
                 if let weather = dict["weather"] as? [Dictionary<String,AnyObject>] {
                     
                     if let main = weather[0]["main"] as? String {
                         self._weatherType = main.capitalized
-                        //print(self._weatherType)
+                       
                     }
                 }
                 if let main = dict["main"] as? Dictionary<String,AnyObject> {
                     if let currentTemp = main["temp"] as? Double {
-                    var fehToCel = Double(currentTemp - 32)
-                        fehToCel = Double(round(fehToCel * (5/9)))
-                    self._currentTemp = fehToCel
-                        //print(self._currentTemp)
+                    self._currentTemp = round(currentTemp.fahrenheitToCelsius())
+                        
                  }
                 }
             
             }
-    
+        completed()
         }
-       completed()
     }
 }
+
+
