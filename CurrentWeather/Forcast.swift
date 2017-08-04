@@ -47,10 +47,10 @@ class Forcast {
         if let temp = weatherDict["temp"] as? Dictionary<String, AnyObject> {
             
             if let min = temp["min"] as? Double {
-                self._tempMin = "\(round(min.fahrenheitToCelsius()))"
+                self._tempMin = "\(round(min.kelvinToCelcius()))"
             }
             if let max = temp["max"] as? Double {
-                self._tempMax = "\(round(max.fahrenheitToCelsius()))"
+                self._tempMax = "\(round(max.kelvinToCelcius()))"
             }
         }
     

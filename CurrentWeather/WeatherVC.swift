@@ -19,6 +19,9 @@ class WeatherVC: UIViewController ,UITableViewDelegate,UITableViewDataSource , C
     @IBOutlet weak var currentWeatherTypeLbl: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var locationManager = CLLocationManager()
+    var currentLocation : CLLocation!
+    
     var currentWeather : CurrentWeather!
     var forcast : Forcast!
     var forcasts = [Forcast]()
@@ -26,17 +29,47 @@ class WeatherVC: UIViewController ,UITableViewDelegate,UITableViewDataSource , C
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startMonitoringSignificantLocationChanges()
+        
+        
         tableView.delegate = self
         tableView.dataSource = self
         
         currentWeather = CurrentWeather()
-        currentWeather.downloadWeatherDetails {
-            self.downloadForcastDetails {
-                self.updateMainUI()
-            }
-            
-        }
+       
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        locationAuthStatus()
+    }
+    
+    func locationAuthStatus() {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+            currentLocation = locationManager.location
+            Location.sharedInstance.latitude = currentLocation.coordinate.latitude
+            Location.sharedInstance.longitude = currentLocation.coordinate.longitude
+         //   print(current_weather_url)
+            
+                       currentWeather.downloadWeatherDetails {
+                self.downloadForcastDetails {
+                    self.updateMainUI()
+                }
+                
+            }
+        }
+        else {
+            locationManager.requestWhenInUseAuthorization()
+            locationAuthStatus()
+        }
+        
+    }
+    
     
     // function to get forcast data from API using Alamofire
     

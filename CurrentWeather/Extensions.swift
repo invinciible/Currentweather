@@ -18,6 +18,9 @@ extension Double {
     func fahrenheitToCelsius() -> Double {
         return (self - 32) * 5 / 9
     }
+    func kelvinToCelcius() -> Double {
+        return self - 273.15
+    }
 }
 
 extension Date {
